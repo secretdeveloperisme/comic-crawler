@@ -42,7 +42,7 @@ public class ChapterContent {
         outputString.append("<h1>").append(title).append("</h1>");
         outputString.append("<ul class='chapter-images'>").append("\n");
         for(String chapterImagesUrl: chapterImagesUrls){
-            String imgTag = "<img src=\"%s\"/>".formatted(chapterImagesUrl);
+            String imgTag = "<img loading=\"lazy\" src=\"%s\"/>".formatted(chapterImagesUrl);
             outputString.append("<li>");
             outputString.append(imgTag).append("\n");
             outputString.append("</li>");

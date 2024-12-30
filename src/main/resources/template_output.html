@@ -1,32 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
     <style>
-        body{
+        body {
             background-color: black;
         }
-        body h1{
+
+        body h1 {
             color: white;
         }
-        .chapter-container{
+
+        .chapter-container {
             width: 70%;
             margin: auto;
         }
-        ul > li{
+
+        ul>li {
             list-style-type: none;
             margin: 0;
         }
-        .chapter-images{
+
+        .chapter-images {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
         }
     </style>
+    <script id="chaptersData"></script>
 </head>
-<body>
-  <div id="container"></div>
 
+<body>
+    <div id="container"></div>
+    <script>
+        let container = document.getElementById("container");
+        let currentIndex = 0;
+
+        function loadChapter(chapterIndex) {
+            if (chapterIndex > chapters.chapterContents.length - 1) return;
+            let chapter = chapters.chapterContents[chapterIndex];
+            let chapterContainer = document.createElement("div");
+            chapterContainer.classList.add("chapter-container");
+            let chapterTitle = document.createElement("h1");
+            chapterTitle.innerText = chapter.title;
+            chapterContainer.appendChild(chapterTitle);
+            let chapterImages = document.createElement("div");
+            chapterImages.classList.add("chapter-images");
+            chapter.chapterURLs.forEach(url => {
+                let img = document.createElement("img");
+                img.src = url;
+                chapterImages.appendChild(img);
+            });
+            chapterContainer.appendChild(chapterImages);
+            container.appendChild(chapterContainer);
+        }
+
+        function onScroll() {
+            if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+                currentIndex++;
+                loadChapter(currentIndex);
+            }
+        }
+
+        window.addEventListener('scroll', onScroll);
+
+        loadChapter(currentIndex);
+    </script>
 </body>
+
 </html>

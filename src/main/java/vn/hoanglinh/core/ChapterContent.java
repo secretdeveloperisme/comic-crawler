@@ -2,6 +2,7 @@ package vn.hoanglinh.core;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ChapterContent {
     private String title;
@@ -51,5 +52,16 @@ public class ChapterContent {
         outputString.append("</div>");
 
         return outputString.toString();
+    }
+
+    public String toJson() {
+        String json = """
+                    {
+                        "title": "%s",
+                        "chapterURLs" : [%s]
+                    }
+                """;
+        String chapterURlsStr = chapterImagesUrls.stream().map(s -> "\"" + s + "\"").collect(Collectors.joining(","));
+        return json.formatted(this.title, chapterURlsStr);
     }
 }

@@ -85,13 +85,15 @@ public class Crawler {
             return Jsoup.parse(outputContent);
         }
     }
-    public void writeData(Document outputDocument, ChapterContent chapterContent) throws IOException {
-        Element containerElement = outputDocument.selectFirst("#container");
-        if (containerElement != null)
-            containerElement.append(chapterContent.toHtml());
+    public void writeData(Document outputDocument, Chapters chapters) throws IOException {
+        Element chaptersData = outputDocument.selectFirst("#chaptersData");
+
+        if (chaptersData != null)
+            chaptersData.text("\nlet chapters = %s;".formatted(chapters.toJson()));
     }
     public boolean craw(int startChapter, int endChapter){
         Document newOutputDocument;
+        Chapters chapters = new Chapters(startChapter, endChapter);
         try {
             newOutputDocument = newOutputDocument();
         } catch (IOException e) {
@@ -107,7 +109,7 @@ public class Crawler {
             try {
                 Document document = connectToPage(page);
                 ChapterContent chapterContent = extractContents(document);
-                writeData(newOutputDocument, chapterContent);
+                chapters.addChapter(chapterContent);
             } catch (IOException e) {
                 System.err.printf(e + "%n", "Cannot connection to page: %s");
             }
@@ -120,6 +122,7 @@ public class Crawler {
             crawledCounter++;
         }
         try {
+            writeData(newOutputDocument, chapters);
             createOutputFile(startChapter, endChapter, newOutputDocument);
         } catch (IOException e) {
             System.err.println("Could not create Output File");

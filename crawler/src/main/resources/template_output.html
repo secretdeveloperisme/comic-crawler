@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Title</title>
     <style>
         body {
@@ -35,6 +35,8 @@
 <body>
     <div id="container"></div>
     <script>
+        const PROXY_SERVER = "127.0.0.1:8080";
+        const PROXY_REQUEST_URL_TEMPLATE = `http://${PROXY_SERVER}/proxy?url=`
         let container = document.getElementById("container");
         let currentIndex = 0;
 
@@ -50,7 +52,7 @@
             chapterImages.classList.add("chapter-images");
             chapter.chapterURLs.forEach(url => {
                 let img = document.createElement("img");
-                img.src = url;
+                img.src = PROXY_REQUEST_URL_TEMPLATE + url;
                 chapterImages.appendChild(img);
             });
             chapterContainer.appendChild(chapterImages);

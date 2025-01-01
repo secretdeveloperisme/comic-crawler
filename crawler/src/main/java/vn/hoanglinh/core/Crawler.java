@@ -10,10 +10,11 @@ import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 
 public class Crawler {
-    private static final String COMIC_URL = "https://%s/truyen-tranh/toan-chuc-phap-su-4140-chap-%d.html";
+    private static final String COMIC_URL = "https://truyenqqto.com/truyen-tranh/toan-chuc-phap-su-4140-chap-%d.html";
     private static final String CHAPTER_IMAGE_SELECTOR = ".chapter_content .page-chapter > img";
     private static final int delay = 700;
     private static final String TITLE_SELECTOR = "h1.detail-title";
+    public static final String PROXY_SERVER = "localhost:8080";
     public static final String CHAPTER_FILE_NAME_TEMPLATE = "chapter_%d-%d.html";
     private String outputFileName;
     private int crawledCounter = 0;

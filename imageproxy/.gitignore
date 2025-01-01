@@ -1,0 +1,13 @@
+HELP.md
+target/
+.mvn
+mvnw.cmd
+mvnw
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### IntelliJ IDEA ###
+.idea
+
+### VS Code ###
+.vscode/
